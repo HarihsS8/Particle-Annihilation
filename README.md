@@ -1,31 +1,43 @@
 # Particle Annihilation
 
-Particle Annihilation is a small physics-focused Python project centered on electron-positron annihilation and related particle/wave calculations.
+## Abstract
 
-When an electron meets a positron, the pair can annihilate and convert their combined rest mass into energy according to Einstein's equation:
+Particle Annihilation is a computational physics project designed to model electron-positron annihilation and related atomic and subatomic wave phenomena. The central process examined is the conversion of matter into radiation when a particle and its antiparticle interact. This project implements the governing physical relationships in a reproducible software framework and provides a deployable interface for calculation and analysis.
 
-E = mc^2
+## Theory
 
-For a standard electron-positron pair, the released energy is:
+When an electron and a positron meet, they undergo mutual annihilation. In this process, both particles cease to exist as independent matter states. Their combined rest mass is converted into energy according to the relativistic mass-energy equivalence relation:
 
-E = 2m_ec^2
+$$E = mc^2$$
 
-This project includes a reusable Python module for:
-- electron-positron annihilation energy
-- photon energy from frequency
-- photon energy from wavelength
-- de Broglie wavelength calculations
-- particle metadata for common atomic and subatomic particles
+For a standard electron-positron pair, the total released energy is:
 
-## Project structure
+$$E_{total} = 2m_ec^2$$
 
-- `particle_annihilation.py` — core particle and wave calculations
-- `app.py` — Flask API for cloud deployment
-- `tests/test_particle_annihilation.py` — physics regression tests
-- `Dockerfile` — container image for Cloud Run
-- `requirements.txt` — Python runtime dependencies
+For the canonical two-photon annihilation channel, the released energy is shared approximately equally between two gamma photons:
 
-## Local usage
+$$E_{\gamma} = \frac{E_{total}}{2}$$
+
+Additional relationships implemented in the project include:
+
+- Photon energy: $E = hf$
+- Photon wavelength: $\lambda = c/f$
+- Photon energy from wavelength: $E = hc/\lambda$
+- De Broglie wavelength: $\lambda = h/(mv)$
+
+## Methodology
+
+The project provides a Python implementation of the relevant equations and stores reference values for common subatomic and atomic particles. Calculations are organized in a modular form to allow direct evaluation of annihilation energy, electromagnetic radiation energy, and wave properties.
+
+### Computational modules
+
+- `particle_annihilation.py` — core physical calculations
+- `app.py` — Flask application for API access and deployment
+- `tests/test_particle_annihilation.py` — regression tests verifying expected behavior
+- `Dockerfile` — container definition for Google Cloud Run
+- `requirements.txt` — project dependencies
+
+## Local execution
 
 Install dependencies:
 
@@ -33,25 +45,25 @@ Install dependencies:
 python -m pip install -r requirements.txt
 ```
 
-Run the module directly:
+Run the calculation module directly:
 
 ```bash
 python -m particle_annihilation --mass 9.1093837015e-31 --photons 2
 ```
 
-Run the Flask API locally:
+Start the local API service:
 
 ```bash
 python app.py
 ```
 
-Then open:
+The service is available at:
 
 ```text
 http://localhost:8080/
 ```
 
-## Example API endpoints
+## API endpoints
 
 ```text
 GET /
@@ -62,9 +74,18 @@ GET /photon/energy?frequency_hz=5e14
 GET /debroglie?mass_kg=9.1093837015e-31&velocity_m_s=1e5
 ```
 
-## Google Cloud Run deployment
+## Results
 
-Build and deploy:
+For a standard electron-positron annihilation event using the electron rest mass:
+
+- Total energy released: $1.637421155365 \times 10^{-13}$ J
+- Energy per gamma photon (two-photon case): $8.187105776824 \times 10^{-14}$ J
+
+These values are consistent with the mass-energy equivalence relation and the assumption of a symmetric two-photon final state.
+
+## Deployment
+
+Build and deploy to Google Cloud Run:
 
 ```bash
 export PROJECT_ID="your-gcp-project-id"
@@ -88,4 +109,6 @@ Run the test suite:
 pytest -q
 ```
 
-This project is intentionally focused on Particle Annihilation as the central concept, while also exposing supporting atomic and subatomic wave calculations in a compact, deployable form.
+## Conclusion
+
+This project provides a compact, deployable scientific framework for the study of particle annihilation and related atomic and subatomic wave calculations. It is intended as a practical computational reference for the standard relationships governing annihilation, radiation, and quantum wave behavior.
